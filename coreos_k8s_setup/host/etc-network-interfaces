@@ -1,0 +1,24 @@
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+source /etc/network/interfaces.d/*
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+auto em1
+iface em1 inet dhcp
+
+# Brigde for Xen hypervisor on subnet 192.168.100.0/24
+auto xenbr0
+iface xenbr0 inet manual
+  pre-up ip link add xenbr0 type bridge
+  pre-up ip addr add 192.168.100.1/24 broadcast 192.168.100.255 dev xenbr0
+  # Not a firewall!! simple rules to access the VMs and Kubes API from physical host
+  # and access to the outside for the VMs
+  pre-up iptables-restore < /etc/iptables-persist/rules.v4
+  up ip link set xenbr0 up
+  down ip link set xenbr0 down
+  post-down ip link delete xenbr0
