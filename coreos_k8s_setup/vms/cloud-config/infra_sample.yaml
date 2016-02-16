@@ -1,0 +1,22 @@
+#cloud-config
+
+# only need ssh keys to connect to the box, not necessary
+ssh_authorized_keys:
+  - ssh-rsa keyxxxxxxxxxxxxxxxxxxxx host
+
+coreos:
+  # This is a member of the etcd cluster
+  etcd2:
+    name: infra0
+    # use DNS SRV records (dnsmasq) to kickstart the etcd cluster, very convenient
+    discovery-srv: nualabs.uk
+    initial-advertise-peer-urls: "http://infra0.nualabs.uk:2380"
+    initial-cluster-token: etcd-cluster-kubes
+    initial-cluster-state: new
+    advertise-client-urls: "http://infra0.nualabs.uk:2379"
+    listen-client-urls: "http://infra0.nualabs.uk:2379,http://127.0.0.1:2379"
+    listen-peer-urls: "http://infra0.nualabs.uk:2380"
+
+  units:
+    - name: etcd2.service
+      command: start

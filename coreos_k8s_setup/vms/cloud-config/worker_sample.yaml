@@ -1,0 +1,19 @@
+#cloud-config
+
+# only need ssh keys to connect to the box, not necessary
+ssh_authorized_keys:
+  - ssh-rsa keyxxxxxxxxxxxxxxxxxxxx host
+
+coreos:
+  # We are using etcd on that machine as a proxy not as a member
+  etcd2:
+    proxy: on
+    # use DNS SRV records (dnsmasq) to find the etcd cluster, very convenient
+    discovery-srv: nualabs.uk
+
+  units:
+    # docker and etcd2 will be started on boot
+    - name: docker.service
+      command: start
+    - name: etcd2.service
+      command: start
