@@ -1,0 +1,26 @@
+root@nualabs-01:/var/lib/xen/images/cloud-config# vgs
+  VG          #PV #LV #SN Attr   VSize   VFree
+  VolGroupXen   2  16   0 wz--n- 437.79g 1.61g
+root@nualabs-01:/var/lib/xen/images/cloud-config# pvs
+  PV         VG          Fmt  Attr PSize   PFree
+  /dev/sda4  VolGroupXen lvm2 a--  214.22g    0
+  /dev/sdb1  VolGroupXen lvm2 a--  223.57g 1.61g
+root@nualabs-01:/var/lib/xen/images/cloud-config# lvs
+  LV                 VG          Attr       LSize   Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+  infra0             VolGroupXen -wi-ao----  10.00g
+  infra0configdrive  VolGroupXen -wi-ao---- 100.00m
+  infra1             VolGroupXen -wi-ao----  10.00g
+  infra1configdrive  VolGroupXen -wi-ao----   4.00m
+  infra2             VolGroupXen -wi-ao----  10.00g
+  infra2configdrive  VolGroupXen -wi-ao----  12.00m
+  lb0                VolGroupXen -wi-ao----   6.00g
+  lb0configdrive     VolGroupXen -wi-ao----  12.00m
+  worker0            VolGroupXen -wi-ao---- 100.00g
+  worker0configdrive VolGroupXen -wi-ao----  12.00m
+  worker1            VolGroupXen -wi-a----- 100.00g
+  worker1configdrive VolGroupXen -wi-a-----  12.00m
+  worker2            VolGroupXen -wi-ao---- 100.00g
+  worker2configdrive VolGroupXen -wi-ao----  12.00m
+  worker3            VolGroupXen -wi-a----- 100.00g
+  worker3configdrive VolGroupXen -wi-a-----  12.00m
+root@nualabs-01:/var/lib/xen/images/cloud-config#
